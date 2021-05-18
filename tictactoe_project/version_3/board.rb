@@ -41,7 +41,7 @@ class Board
             raise StandardError.new("\nEnter a valid position, out of bounds.\nPress Enter to try again\n ")
         else
             begin
-                raise StandardError.new("\nEnter a valid position, position is taken.\nPress Enter to try again\n ")
+                raise StandardError.new("\n#{" " * 3}Enter a valid position, position is taken.\n#{" " * 3}Press Enter to try again\n ")
             rescue => error
                 puts error.message
                 gets
@@ -50,13 +50,13 @@ class Board
     end
 
     def print
-        puts "\n\n#{" " * 7}TIC-TAC-TOE\n#{" " * 8}VERSION 3\n "
-        puts "#{" " * 8}#{(1..board.length).to_a.join(" ")}"
-        puts "#{" " * 7}#{"-" * ((board.length * 2) + 1)}"
+        puts "\n\n#{" " * 8}TIC-TAC-TOE\n#{" " * 9}VERSION 3\n "
+        puts "#{" " * 9}#{(1..board.length).to_a.join(" ")}"
+        puts "#{" " * 8}#{"-" * ((board.length * 2) + 1)}"
         board.each_with_index do |row, idx|
-            puts "#{" " * 4}#{idx + 1} | " + "#{row.join(" ")}" + " |"
+            puts "#{" " * 5}#{idx + 1} | " + "#{row.join(" ")}" + " |"
         end
-        puts "#{" " * 7}#{"-" * ((board.length * 2) + 1)}\n \n "
+        puts "#{" " * 8}#{"-" * ((board.length * 2) + 1)}\n \n "
         true
     end
 

@@ -40,14 +40,14 @@ class Game
     def play
         while board.empty_positions? do
             if current_player.is_a?(ComputerPlayer)
-                puts "\n#{" " * 3}#{player_name}'s Turn to Move\n#{" " * 6}Its Sign is #{current_player.mark}"
+                puts "#{"\n" * 15}#{" " * 2}#{player_name}'s Turn to Move\n#{" " * 7}Its Sign is #{current_player.mark}"
                 board.print
                 position = current_player.get_position(board.legal_positions)
                 @board.place_mark(position, current_player.mark)
                 puts "\n#{" " * 3}Press Enter to Continue"
                 gets
             else
-                puts "\n#{" " * 3}Make a Move #{player_name}\n#{" " * 6}Your Sign is #{current_player.mark}"
+                puts "#{"\n" * 15}#{" " * 4}Make a Move #{player_name}\n#{" " * 7}Your Sign is #{current_player.mark}"
                 board.print
     
                 begin
@@ -59,18 +59,18 @@ class Game
             end
 
             if board.win?(current_player.mark)
-                puts "\n#{" " * 8}GAME OVER!"
+                puts "\n#{" " * 9}GAME OVER!"
                 board.print
-                puts "\n#{" " * 5}#{player_name} VICTORY!\n "
+                puts "\n#{" " * 6}#{player_name} VICTORY!\n "
                 return
             elsif board.made_move
                 switch_turn
                 board.made_move = false
             end
         end
-        puts "\n#{" " * 8}GAME OVER!"
+        puts "\n#{" " * 9}GAME OVER!"
         board.print
-        puts "#{" " * 8}TIE GAME!\n "
+        puts "#{" " * 9}TIE GAME!\n "
     end
 end
 
