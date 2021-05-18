@@ -70,6 +70,3 @@ class Board
         board.any? { |row| row.include?("_") }
     end
 end
-
-b = Board.new
-b.print
