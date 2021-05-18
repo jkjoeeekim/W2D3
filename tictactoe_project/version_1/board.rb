@@ -40,13 +40,13 @@ class Board
     end
 
     def print
-        puts "\n\n  TICTACTOE\n  VERSION 1\n "
-        puts "    #{(1..board.length).to_a.join(" ")}"
-        puts "   -------"
+        puts "\n\n#{" " * 5}TIC-TAC-TOE\n#{" " * 6}VERSION 1\n "
+        puts "#{" " * 8}#{(1..board.length).to_a.join(" ")}"
+        puts "#{" " * 7}#{"-" * ((board.length * 2) + 1)}"
         board.each_with_index do |row, idx|
-            puts "#{idx + 1} | " + "#{row.join(" ")}" + " |"
+            puts "#{" " * 4}#{idx + 1} | " + "#{row.join(" ")}" + " |"
         end
-        puts "   _______\n \n "
+        puts "#{" " * 7}#{"_" * ((board.length * 2) + 1)}\n \n "
         true
     end
 

@@ -22,27 +22,27 @@ class Game
 
     def play
         while board.empty_positions? do
-            puts "\nMake a Move #{player_name}\nYour Sign is #{current_player.mark}"
+            puts "\n Make a Move #{player_name}\n    Your Sign is #{current_player.mark}"
             board.print
 
             begin
                 position = current_player.get_position
                 @board.place_mark(position, current_player.mark)
-                # @board.made_move = true
             rescue => error
                 gets
             end
 
             if board.win?(current_player.mark)
+                puts "\n  GAME OVER! "
                 board.print
-                puts "  #{player_name} VICTORY!"
+                puts "  #{player_name} VICTORY!\n "
                 return
-            elsif @board.made_move
+            elsif board.made_move
                 switch_turn
-                @board.made_move = false
+                board.made_move = false
             end
         end
-        puts " GAME OVER! "
+        puts "\n  GAME OVER! "
         board.print
         puts "  Tie Game\n "
     end
