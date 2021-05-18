@@ -1,23 +1,39 @@
 require_relative "./board.rb"
 
 class HumanPlayer
-    attr_reader :player_mark, :board
+    attr_reader :mark
 
     def initialize(mark_value)
-        @player_mark = mark_value
+        @mark = mark_value
         @board = Board.new
     end
 
     def get_position
-        puts "Enter a row between 1 and #{board.board.length}."
-        row = gets.chomp.to_i
-        puts "Enter a column between 1 and #{board.board.length}."
-        col = gets.chomp.to_i
-        pos = [row - 1, col - 1]
-        
+        # puts "Enter a row between 1 and #{@board.board.length}."
+        # row = gets.chomp.to_i
+        # if !(1..@board.board.length).to_a.include?(row)
+        #     raise StandardError.new("\nInvalid row, does not exist.\nPress Enter to try again\n ")
+        # end
+        # puts "\nEnter a column between 1 and #{@board.board.length}."
+        # col = gets.chomp.to_i
+        # if !(1..@board.board.length).to_a.include?(col)
+        #     raise StandardError.new("\nInvalid column, does not exist.\nPress Enter to try again\n ")
+        # end
+        # [row - 1, col - 1]
+        begin
+            puts "Enter a row between 1 and #{@board.board.length}."
+            row = gets.chomp.to_i
+            if !(1..@board.board.length).to_a.include?(row)
+                raise StandardError.new("\nInvalid row, does not exist.\nPress Enter to try again\n ")
+            end
+            puts "\nEnter a column between 1 and #{@board.board.length}."
+            col = gets.chomp.to_i
+            if !(1..@board.board.length).to_a.include?(col)
+                raise StandardError.new("\nInvalid column, does not exist.\nPress Enter to try again\n ")
+            end
+            [row - 1, col - 1]
+        rescue => error
+            puts error.message
+        end
     end
 end
-
-p1 = HumanPlayer.new(:X)
-p p1
-p p1.get_position

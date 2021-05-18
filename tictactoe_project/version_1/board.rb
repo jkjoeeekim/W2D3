@@ -1,8 +1,10 @@
 class Board
     attr_reader :board
+    attr_accessor :made_move
 
     def initialize
         @board = Array.new(3) { Array.new(3, "_") }
+        @made_move = false
     end
 
     def [](position)
@@ -24,10 +26,16 @@ class Board
     def place_mark(position, mark)
         if valid?(position) && empty?(position)
             self[position] = mark
+            @made_move = true
         elsif !valid?(position)
-            raise "Enter a valid position, out of bounds."
+            raise StandardError.new("\nEnter a valid position, out of bounds.\nPress Enter to try again\n ")
         else
-            raise "Enter a valid position, position is taken."
+            begin
+                raise StandardError.new("\nEnter a valid position, position is taken.\nPress Enter to try again\n ")
+            rescue => error
+                puts error.message
+                gets
+            end
         end
     end
 
