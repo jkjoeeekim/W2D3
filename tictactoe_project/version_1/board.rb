@@ -3,7 +3,7 @@ class Board
     attr_accessor :made_move
 
     def initialize
-        @board = Array.new(3) { Array.new(3, "_") }
+        @board = Array.new(3) { Array.new(3, "-") }
         @made_move = false
     end
 
@@ -20,7 +20,7 @@ class Board
     end
 
     def empty?(position)
-        self[position] == "_"
+        self[position] == "-"
     end
 
     def place_mark(position, mark)
@@ -46,7 +46,7 @@ class Board
         board.each_with_index do |row, idx|
             puts "#{" " * 4}#{idx + 1} | " + "#{row.join(" ")}" + " |"
         end
-        puts "#{" " * 7}#{"_" * ((board.length * 2) + 1)}\n \n "
+        puts "#{" " * 7}#{"-" * ((board.length * 2) + 1)}\n \n "
         true
     end
 
@@ -75,6 +75,6 @@ class Board
     end
 
     def empty_positions?
-        board.any? { |row| row.include?("_") }
+        board.any? { |row| row.include?("-") }
     end
 end

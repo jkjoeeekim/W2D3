@@ -54,7 +54,7 @@ class Game
         end
         puts "\n#{" " * 8}GAME OVER!"
         board.print
-        puts "  Tie Game\n "
+        puts "#{" " * 5}Tie Game\n "
     end
 end
 

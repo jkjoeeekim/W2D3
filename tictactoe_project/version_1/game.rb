@@ -33,7 +33,7 @@ class Game
             end
 
             if board.win?(current_player.mark)
-                puts "\n  GAME OVER! "
+                puts "\n#{" " * 5}GAME OVER! "
                 board.print
                 puts "  #{player_name} VICTORY!\n "
                 return
@@ -42,9 +42,9 @@ class Game
                 board.made_move = false
             end
         end
-        puts "\n  GAME OVER! "
+        puts "\n#{" " * 5}GAME OVER! "
         board.print
-        puts "  Tie Game\n "
+        puts "#{" " * 5}TIE GAME!\n "
     end
 end
 
