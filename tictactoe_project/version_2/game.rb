@@ -60,27 +60,3 @@ end
 
 new_game = Game.new(5, :X, :O, :K, :J)
 new_game.play
-# p new_game.current_player.mark
-# p new_game.player_name
-# p new_game.switch_turn
-
-# p new_game.current_player.mark
-# p new_game.player_name
-# p new_game.switch_turn
-
-# p new_game.current_player.mark
-# p new_game.player_name
-# p new_game.switch_turn
-
-# p new_game.current_player.mark
-# p new_game.player_name
-# p new_game.switch_turn
-
-# p new_game.current_player.mark
-# p new_game.player_name
-# p new_game.switch_turn
-
-# p new_game.current_player.mark
-# p new_game.player_name
-
-# p new_game.players.keys[1].mark
