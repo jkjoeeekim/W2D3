@@ -10,12 +10,12 @@ class HumanPlayer
 
     def get_position
         begin
-            puts "Enter a row between 1 and #{@board.board.length}."
+            puts "  Enter a row between 1 and #{@board.board.length}.\n "
             row = gets.chomp.to_i
             if !(1..@board.board.length).to_a.include?(row)
                 raise StandardError.new("\n#{" " * 3}Invalid row, does not exist.\n#{" " * 3}Press Enter to try again\n ")
             end
-            puts "\nEnter a column between 1 and #{@board.board.length}."
+            puts "  Enter a column between 1 and #{@board.board.length}.\n "
             col = gets.chomp.to_i
             if !(1..@board.board.length).to_a.include?(col)
                 raise StandardError.new("\n#{" " * 3}Invalid column, does not exist.\n#{" " * 3}Press Enter to try again\n ")

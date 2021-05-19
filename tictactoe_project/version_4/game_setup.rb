@@ -10,7 +10,7 @@ class GameSetup
 
     def get_size
         begin
-            puts "\n\n  What is the Board Size?\n "
+            puts "#{"\n" * 30}  What is the Board Size?\n "
             size = gets.chomp.to_i
         rescue => exception
             
@@ -45,7 +45,7 @@ class GameSetup
         available_symbols = ("A".."Z").to_a
         num_players.times do |player|
             begin
-                puts "\n\n  Choose your symbol Player #{player + 1}\n  (Any character from A ~ Z)\n "
+                puts "#{"\n" * 30}  Choose your symbol Player #{player + 1}\n  (Any character from A ~ Z)\n "
                 symbol_string = gets.chomp
                 if !available_symbols.include?(symbol_string.upcase)
                     raise Error.new("\n\n  Invalid character, choose from A ~ Z\n\n ")
