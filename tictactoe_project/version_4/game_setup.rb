@@ -12,19 +12,31 @@ class GameSetup
         begin
             puts "#{"\n" * 30}  What is the Board Size?\n "
             size = gets.chomp.to_i
-        rescue => exception
-            
+            if size < 3
+                raise StandardError.new("Invalid Size, must be at least 3")
+            end
+            size
+        rescue => error
+            puts "\n  #{error.message}"
+            puts "  Press Enter to Try Again\n "
+            gets
+            retry
         end
-        size
     end
 
     def get_players_and_computers(size)
         begin
             puts "\n\n  How many players?\n "
             num_players = gets.chomp.to_i
+            if num_players < 1
+                raise StandardError.new("Invalid numbers of players, must be at least 1")
+            end
             
             puts "\n\n  How many computers?\n "
             num_computers = gets.chomp.to_i
+            if num_computers > 5
+                raise StandardError.new("Invalid number of computers, must be less than 5")
+            end
 
             puts "#{"\n" * 30} GAME SETUP:"
             puts "\n\n Board Size: #{size}\n "
@@ -34,10 +46,12 @@ class GameSetup
             puts "\n  Press Enter to Continue...\n "
             gets
             [num_players, num_computers]
-        rescue => exception
-            
+        rescue => error
+            puts "\n  #{error.message}"
+            puts "  Press Enter to Try Again\n "
+            gets
+            retry
         end
-        [num_players, num_computers]
     end
 
     def choose_symbol_player(num_players)
@@ -47,19 +61,20 @@ class GameSetup
             begin
                 puts "#{"\n" * 30}  Choose your symbol Player #{player + 1}\n  (Any character from A ~ Z)\n "
                 symbol_string = gets.chomp
-                if !available_symbols.include?(symbol_string.upcase)
-                    raise Error.new("\n\n  Invalid character, choose from A ~ Z\n\n ")
-                end
-                available_symbols.delete(symbol_string.upcase)
                 sym = symbol_string.upcase.to_sym
                 if symbols_hash.keys.include?(sym)
-                    raise Error.new("\n\n  Symbol is already taken, choose again\n\n ")
+                    raise StandardError.new("Symbol is already taken, choose again")
                 end
+                if !available_symbols.include?(symbol_string.upcase)
+                    raise StandardError.new("Invalid character, choose from A ~ Z")
+                end
+                available_symbols.delete(symbol_string.upcase)
                 symbols_hash[sym] = false
             rescue => error
-                # puts error.message
-                puts "  Press Enter to Try Again\n"
+                puts "\n  #{error.message}"
+                puts "  Press Enter to Try Again\n "
                 gets
+                retry
             end
         end
         puts "#{"\n" * 30} PLAYER SYMBOLS:\n\n "
@@ -77,7 +92,7 @@ class GameSetup
             sym = symbol_string.to_sym
             symbols_hash[sym] = true
         end
-        # p available_symbols
+
         computers = symbols_hash.select { |sym, bool| bool }
         puts "\n COMPUTER SYMBOLS:\n\n "
         computers.keys.each_with_index do |sym, idx|
@@ -89,33 +104,36 @@ class GameSetup
     def setup
         puts "#{"\n" * 30}#{" " * 6}PLAY TIC-TAC-TOE\n#{" " * 9}VERSION 4\n\n\n\n  Press Enter to Setup Game Parameters...\n "
         gets
+
         puts "#{"\n" * 2}#{" " * 5}ENTERING GAME SETUP\n\n\n\n  Press Enter to Continue...\n "
         gets
-        begin
-            size = get_size
-            total = get_players_and_computers(size)
-            symbols_hash = choose_symbol_player(total[0])
-            marks = choose_symbol_computer(total[1], symbols_hash) unless total[1] == 0
+        
+        size = get_size
+        total = get_players_and_computers(size)
+        symbols_hash = choose_symbol_player(total[0])
+        if total[1] == 0
+            marks = symbols_hash
+        else
+            marks = choose_symbol_computer(total[1], symbols_hash)
+        end
 
-            puts "\n\n  Press Enter to Start Game!!\n "
-            gets
-            run_game(size, marks)
+        puts "\n\n  Press Enter to Start Game!!\n "
+        gets
 
-            players = marks.select { |mark, bool| !bool }
-            players.keys.each do |mark|
-                @new_game.board.win?(mark) ? @win_count += 1 : @lose_count += 1
-            end
+        run_game(size, marks)
 
-            puts "\n\n  Play Again? (y/n)\n "
-            answer = gets.chomp.downcase
-            if answer == "y"
-                new_game = GameSetup.new(win_count, lose_count)
-                new_game.setup
-            else
-                puts "#{"\n" * 30}  Player(s) record was: #{win_count} Wins and #{lose_count} Losses!\n\n  Thanks for Playing~\n "
-            end
-        # rescue => exception
-            # puts "tryagain"
+        players = marks.select { |mark, bool| !bool }
+        players.keys.each do |mark|
+            @new_game.board.win?(mark) ? @win_count += 1 : @lose_count += 1
+        end
+        
+        puts "\n\n  Play Again? (y/n)\n "
+        answer = gets.chomp.downcase
+        if answer == "y"
+            new_game = GameSetup.new(win_count, lose_count)
+            new_game.setup
+        else
+            puts "#{"\n" * 30}  Player(s) record was: #{win_count} Wins and #{lose_count} Losses!\n\n  Thanks for Playing~\n "
         end
     end
 

@@ -50,7 +50,7 @@ class Board
     end
 
     def print
-        puts "\n\n#{" " * 8}TIC-TAC-TOE\n#{" " * 9}VERSION 3\n "
+        puts "\n\n#{" " * 8}TIC-TAC-TOE\n#{" " * 9}VERSION 4\n "
         puts "#{" " * 9}#{(1..board.length).to_a.join(" ")}"
         puts "#{" " * 8}#{"-" * ((board.length * 2) + 1)}"
         board.each_with_index do |row, idx|

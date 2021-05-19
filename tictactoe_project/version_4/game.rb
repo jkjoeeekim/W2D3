@@ -7,21 +7,29 @@ class Game
 
     def initialize(size, marks)
         @players = Hash.new
-        @computers = Hash.new
+        
+        players = player_marks(marks)
+        players.keys.each_with_index do |mark, idx|
+            mark = HumanPlayer.new(size, mark)
+            @players[mark] = "Player #{idx + 1}"
+        end
 
-        marks.keys.each_with_index do |mark, idx|
-            if marks[mark]
-                mark = ComputerPlayer.new(mark)
-                @players[mark] = "Computer #{idx + 1}"
-            else
-                mark = HumanPlayer.new(size, mark)
-                @players[mark] = "Player #{idx + 1}"
-            end
+        computers = computer_marks(marks)
+        computers.keys.each_with_index do |mark, idx|
+            mark = ComputerPlayer.new(mark)
+            @players[mark] = "Computer #{idx + 1}"
         end
         
         @current_player = @players.keys.first
         @board = Board.new(size)
-        
+    end
+
+    def computer_marks(marks)
+        marks.select { |mark, bool| bool }
+    end
+
+    def player_marks(marks)
+        marks.select { |mark, bool| !bool }
     end
 
     def player_name
@@ -43,6 +51,7 @@ class Game
                 puts "#{"\n" * 15}"
                 board.print
                 puts "\n #{" " * 2}#{player_name}'s Turn to Move\n#{" " * 7}Its Sign is #{current_player.mark}\n "
+                
                 position = current_player.get_position(board.legal_positions)
                 @board.place_mark(position, current_player.mark)
                 puts "\n#{" " * 3}Press Enter to Continue"
@@ -75,7 +84,3 @@ class Game
         puts "#{" " * 9}TIE GAME!\n "
     end
 end
-
-# new_game = Game.new(5, {X: false, O: false, K: true, J: true})
-# new_game.play
-# p new_game.players
