@@ -1,4 +1,5 @@
 require_relative "./board.rb"
+require 'byebug'
 
 class HumanPlayer
     attr_reader :mark

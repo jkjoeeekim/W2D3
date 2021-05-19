@@ -1,6 +1,7 @@
 require_relative "./board.rb"
 require_relative "./human_player.rb"
 require_relative "./computer_player.rb"
+require 'byebug'
 
 class Game
     attr_reader :players, :current_player, :board
@@ -54,7 +55,7 @@ class Game
                 
                 position = current_player.get_position(board.legal_positions)
                 @board.place_mark(position, current_player.mark)
-                puts "\n#{" " * 3}Press Enter to Continue"
+                puts "\n#{" " * 3}Press Enter to Continue\n "
                 gets
             else
                 puts "#{"\n" * 15}"
