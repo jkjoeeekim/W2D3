@@ -49,19 +49,20 @@ class Code
     count_hash = Hash.new { |hash, key| hash[key] = 0 }
 
     guess_without_matches = []
+    answer_without_matches = []
     
-    without_exact_matches = self.pegs.map.with_index do |peg, idx|
+    self.pegs.each_with_index do |peg, idx|
       if peg == guess.pegs[idx]
         guess_without_matches << "--"
-        "-"
+        answer_without_matches << "-"
       else
         guess_without_matches << guess.pegs[idx]
-        peg
+        answer_without_matches << peg
       end
     end
 
-    without_exact_matches.each_with_index do |peg, idx|
-      if guess_without_matches.include?(peg) && without_exact_matches[idx] != guess_without_matches[idx]
+    guess_without_matches.each_with_index do |peg, idx|
+      if answer_without_matches.include?(peg)
         count_hash[peg] += 1
       end
     end
